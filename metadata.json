@@ -1,0 +1,6 @@
+{
+  "name": "FreshPulse - Retail Inventory & Real-Time Expiration Tracking System",
+  "description": "Production-ready retail inventory management system featuring unique lot/batch tracking, real-time dynamic expiration countdowns, automated 30-day threshold alerts, and clearance markdown workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
