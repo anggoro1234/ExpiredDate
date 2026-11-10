@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInventory } from '../context/InventoryContext';
+import amanmartLogo from '../assets/amanmart-logo.png';
 import {
   Layers,
   CalendarDays,
@@ -9,7 +10,6 @@ import {
   Building2,
   ShieldAlert,
   PlusCircle,
-  Sparkles,
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -26,6 +26,17 @@ export const Header: React.FC = () => {
     setIsAlertModalOpen,
     batches,
   } = useInventory();
+
+  const [logoSrc, setLogoSrc] = useState<string>(amanmartLogo);
+  const [logoError, setLogoError] = useState<boolean>(false);
+
+  const handleLogoError = () => {
+    if (logoSrc !== '/amanmart-logo.png') {
+      setLogoSrc('/amanmart-logo.png');
+    } else {
+      setLogoError(true);
+    }
+  };
 
   const handleSimulateFastForward = (days: number) => {
     setSimulatedDaysOffset(prev => prev + days);
@@ -127,16 +138,27 @@ export const Header: React.FC = () => {
       {/* Main Navigation Bar */}
       <div className="px-3 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
         {/* Brand & Theme */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-600/25">
-            <Layers className="w-5 h-5 text-white" />
-          </div>
+        <div className="flex items-center gap-3">
+          {!logoError ? (
+            <div className="bg-white px-3 py-1.5 rounded-xl shadow-md shadow-emerald-950/50 border border-emerald-500/40 flex items-center justify-center shrink-0">
+              <img
+                src={logoSrc}
+                alt="Amanmart - Halal Terjangkau"
+                onError={handleLogoError}
+                className="h-8 sm:h-9 w-auto object-contain select-none"
+              />
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-600/25 shrink-0">
+              <Layers className="w-5 h-5 text-white" />
+            </div>
+          )}
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-base sm:text-lg font-black tracking-tight text-white">
-                FreshPulse
+                Amanmart
               </h1>
-              <span className="px-1.5 py-0.2 text-[10px] font-bold rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">
+              <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase">
                 ED TRACKER
               </span>
             </div>
